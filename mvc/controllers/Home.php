@@ -3,9 +3,15 @@
 class Home extends Controller {
 	
 	function Hello() {
-		echo "Hiiii home ";
-		// $teo = $this->model("SinhVienModel");
-		// echo $teo->getSV();
+		$new_product = $this->model("HomeModel");
+		$result_new_product = $new_product->getNewProduct();
+		$result_feature_product = $new_product->getFeatureProduct();
+		$this->view("user_layout", [
+			"name_page"=>"home_user",
+			"Page"=>"home",
+			"new_product"=>$result_new_product,
+			"feature_product"=>$result_feature_product,
+		]);
 	}
 
 	function Show($a, $b) {

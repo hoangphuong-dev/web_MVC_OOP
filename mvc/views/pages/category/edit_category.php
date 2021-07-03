@@ -13,7 +13,9 @@ if(!empty($data['category'])) {
             <span style="color: <?php if(isset($data['color'])) echo $data['color'] ?> ">
                 <?php if(isset($data['alert'])) echo $data['alert'] ?>
             </span>
-            <input type="hidden" name="category_id" value="<?php if(isset($data['category_id'])) echo $data['category_id'] ?><?php if(isset($row['category_id'])) $row['category_id']?>">
+            <input type="hidden" name="category_id" value="
+            <?php if(isset($data['category_id'])) echo $data['category_id'] ?>
+            <?php if(isset($row['category_id'])) echo $row['category_id']?>">
             <tr><td><input type="text" 
                 name="category_name" 
                 placeholder="Enter category name..." 

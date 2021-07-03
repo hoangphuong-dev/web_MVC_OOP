@@ -17,6 +17,7 @@ public function validation($data){
     $data = stripcslashes($data); // là hàm loại bỏ các kí tự backslashes(dấu gạch chéo) của chuỗi // hàm loại bỏ khoảng trắng trong chuỗi
     $data = htmlspecialchars($data); // hàm chặn người dùng chèn kí tự của HTML(<br>, <img>) vào thẻ input
     $data = addcslashes ($data, "'"); // Thêm dấu gạch chéo vào những đằng trước kí tự ' để tránh lỗi sql
+    // $data= mysql_real_escape_string($data);
     return $data;
 }
 

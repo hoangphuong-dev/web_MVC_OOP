@@ -10,7 +10,7 @@ require_once 'mvc/core/Process_link.php';
 <html>
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-	<link rel="shortcut icon" href="<?php echo $link?>public/img/iconapp.ico"> <!-- đang ở index.php nha  -->
+	<link rel="shortcut icon" href="<?php echo $link?>public/images/iconapp.ico"> <!-- đang ở index.php nha  -->
 	<link rel="stylesheet" type="text/css" href="<?php echo $link?>public/css/reset.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="<?php echo $link?>public/css/text.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="<?php echo $link?>public/css/grid.css" media="screen" />
@@ -42,7 +42,7 @@ require_once 'mvc/core/Process_link.php';
 		<div class="grid_12 header-repeat">
 			<div id="branding">
 				<div class="floatleft logo">
-					<img src="<?php echo $link?>public/img/livelogo.png" alt="Logo" />
+					<img src="<?php echo $link?>public/images/livelogo.png" alt="Logo" />
 				</div>
 				<div class="floatleft middle">
 					<h1>Training with live project</h1>
@@ -50,7 +50,7 @@ require_once 'mvc/core/Process_link.php';
 				</div>
 				<div class="floatright">
 					<div class="floatleft">
-						<img src="<?php echo $link?>public/img/img-profile.jpg" alt="Profile Pic" /></div>
+						<img src="<?php echo $link?>public/images/img-profile.jpg" alt="Profile Pic" /></div>
 						<div class="floatleft marginleft10">
 							<ul class="inline-ul floatleft">
 								<li>Hello <?php echo Session::get('adminName') ?></li>

@@ -37,11 +37,15 @@ class Brand extends Controller {
 	function list() {
 		$brand = $this->model("BrandModel");
 		$result = $brand->getAll();
-		$this->view("master_layout", [
+		if($result == "") {
+			echo "Chưa có thương hiệu nào ?? ";
+		} else {
+			$this->view("master_layout", [
 			"name_page"=>"brand",
 			"Page"=>"list_brand",
 			"brand"=>$result
 		]);
+		}
 	}
 	function edit($id) {
 		$brand = $this->model("BrandModel");

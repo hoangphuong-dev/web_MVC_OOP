@@ -37,20 +37,24 @@ class Category extends Controller {
 	function list() {
 		$category = $this->model("CategoryModel");
 		$result = $category->getAll();
-		$this->view("master_layout", [
-			"name_page"=>"category",
-			"Page"=>"list_category",
-			"category"=>$result
-		]);
-	}
-	function edit($id) {
-			$category = $this->model("CategoryModel");
-			$result =  $category->Edit($id);
+		if($result == "") {
+			echo "Chưa có thể loại nào !";
+		} else {
 			$this->view("master_layout", [
 				"name_page"=>"category",
-				"Page"=>"edit_category",
-				"category"=> $result
+				"Page"=>"list_category",
+				"category"=>$result
 			]);
+		}
+	}
+	function edit($id) {
+		$category = $this->model("CategoryModel");
+		$result =  $category->Edit($id);
+		$this->view("master_layout", [
+			"name_page"=>"category",
+			"Page"=>"edit_category",
+			"category"=> $result
+		]);
 		
 	}
 	function process_edit() {

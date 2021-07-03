@@ -4,6 +4,7 @@
 	<h2>Brand List</h2>
 	<div class="block">        
 		<table class="data display datatable" id="example">
+			<span style="color: <?php if(isset($data['color'])) echo $data['color'] ?>"><?php if(isset($data['alert'])) echo $data['alert'] ?></span>
 			<thead>
 				<tr>
 					<th>Brand Id</th>
