@@ -22,8 +22,6 @@ class DB {
 		}
 		return true;
 	}
-
-
 // Select or Read data
 	public function select($query){
 		$result = $this->connect->query($query) or 

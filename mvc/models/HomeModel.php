@@ -5,29 +5,49 @@ class HomeModel extends DB {
 		$result = $this->select($query);
 		return $result;
 	}
-
 	public function getFeatureProduct() {
 		$query = "select * from product_brand_category_type where type_name = 'siêu siêu xịn' limit 4";
 		$result = $this->select($query);
 		return $result;
 	}
-
-
-
-
-	public function Edit($id) {
-		$query = "select * from category where category_id = '$id'";
+	public function getProductById($id) {
+		$query = "select * from product_brand_category_type where product_id = '$id'";
 		$result = $this->select($query);
 		return $result;
 	}
-	public function processEdit($id_category, $name_category) {
-		$query = "update category set category_name = '$name_category' where category_id = '$id_category'";
-		$this->update($query);
+	public function getCategory() {
+		$query = "select DISTINCT category_name from product_brand_category_type";
+		$result = $this->select($query);
+		return $result;
 	}
-	public function Delete($id_category) {
-		$query = "delete from category where category_id = '$id_category'";
-		mysqli_query($this->connect, $query);
-		$result = $this->getAll();
+	public function getProductByPhone() {
+		$query = "select * from product_brand_category_type where category_name = 'điện thoại'  order by product_id DESC limit 4;";
+		$result = $this->select($query);
+		return $result;
+	}
+	public function getProductByLaptop() {
+		$query = "select * from product_brand_category_type where category_name = 'máy tính'  order by product_id DESC limit 4;";
+		$result = $this->select($query);
+		return $result;
+	}
+	public function getProductDell() {
+		$query = "select * from product_brand_category_type where brand_name = 'dell'  order by product_id DESC limit 4;";
+		$result = $this->select($query);
+		return $result;
+	}
+	public function getProductByHp() {
+		$query = "select * from product_brand_category_type where brand_name = 'HP'  order by product_id DESC limit 4;";
+		$result = $this->select($query);
+		return $result;
+	}
+	public function getProductByApple() {
+		$query = "select * from product_brand_category_type where brand_name = 'Apple'  order by product_id DESC limit 4;";
+		$result = $this->select($query);
+		return $result;
+	}
+	public function getProductByCat($category) {
+		$query = "select * from product_brand_category_type where category_name = '$category'";
+		$result = $this->select($query);
 		return $result;
 	}
 }

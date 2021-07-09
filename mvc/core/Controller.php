@@ -1,5 +1,5 @@
-  <?php 
-class Controller {
+<?php 
+trait Controller {
 	public function model($model) {
 		require_once "mvc/models/".$model.".php";
 		return new $model;
@@ -7,5 +7,6 @@ class Controller {
 
 	public function view($view, $data=[]) {
 		require_once "mvc/views/".$view.".php";
+		// header("location :mvc/views/".$view.".php");
 	}
 }

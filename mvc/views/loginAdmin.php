@@ -1,14 +1,15 @@
+<?php require_once 'mvc/core/Process_link.php' ?>
 <!DOCTYPE html>
 <head>
 	<meta charset="utf-8">
 	<title>Login</title>
-	<link rel="shortcut icon" href="../public/img/iconapp.ico"> <!-- đang ở index.php nha  -->
-	<link rel="stylesheet" type="text/css" href="../public/css/stylelogin.css" media="screen" />
+	<link rel="shortcut icon" href="<?= $link?>public/img/iconapp.ico"> <!-- đang ở index.php nha  -->
+	<link rel="stylesheet" type="text/css" href="<?php echo $link?>public/css/stylelogin.css" media="screen" />
 </head>
 <body>
 	<div class="container">
 		<section id="content">
-			<form action="process_login" method="post">
+			<form action="<?= $link?>admin/process_login" method="post">
 				<h1>Admin Login</h1>
 				<span style="color: red"><?php if(isset($alert)) echo $alert ?></span>
 				<div>

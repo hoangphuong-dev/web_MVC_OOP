@@ -1,6 +1,7 @@
 <?php
-class Product extends Controller {
+class Product {
 	use Format;
+	use Controller;
 	function Hello() {
 		$this->list();
 	}
@@ -94,6 +95,7 @@ class Product extends Controller {
 			"product"=>$result
 		]);
 	}
+
 	function edit($id) {
 		$result_category = $this->getDataCategory();
 		$result_brand = $this->getDataBrand();
@@ -159,4 +161,4 @@ class Product extends Controller {
 		$product->Delete($id);
 		header("Location:../list");
 	}
-} 
+}

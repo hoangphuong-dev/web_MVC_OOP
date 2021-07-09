@@ -1,6 +1,7 @@
 <?php 
-class Category extends Controller {
+class Category {
 	use Format;
+	use Controller;
 	function Hello() {
 		$this->list();
 	}

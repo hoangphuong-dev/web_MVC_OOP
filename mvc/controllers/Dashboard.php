@@ -1,5 +1,6 @@
 <?php 
-class Dashboard extends Controller {
+class Dashboard {
+	use Controller;
 	function Hello() {
 		$this->view("master_layout", [
 			"Page"=>"dashbord",

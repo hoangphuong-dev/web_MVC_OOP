@@ -1,12 +1,13 @@
 <?php 
-class Admin extends Controller {
+class Admin {
 	use Format;
+	use Controller;
 	public function Hello() {
 		require_once "mvc/views/loginAdmin.php";
 	}
 	public function process_login() {
-		$username = $this->validation($_POST['username']);
-		$password = md5($this->validation($_POST['password']));
+		if(isset($_POST['username'])) $username = $this->validation($_POST['username']);
+		if(isset($_POST['password'])) $password = md5($this->validation($_POST['password']));
 
 		if(empty($username) || empty($password)) {
 			$alert = "Acount and password must be not empty !";

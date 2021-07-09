@@ -1,6 +1,7 @@
 <?php 
-class Brand extends Controller {
+class Brand {
 	use Format;
+	use Controller;
 	function Hello() {
 		$this->list();
 	}
