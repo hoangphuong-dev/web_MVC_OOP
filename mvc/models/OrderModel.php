@@ -41,11 +41,6 @@ class OrderModel extends DB {
 		$result = $this->select($query);
 		return $result;
 	}
-
-
-
-
-
 // Model của bên khách hàng
 	public function getOrderDetailCus($order_id, $customer_id) {
 		$sql = "select order_id from orders where order_id = '$order_id' and customer_id = '$customer_id'";

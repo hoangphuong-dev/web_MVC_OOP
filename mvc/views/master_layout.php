@@ -109,8 +109,8 @@ require_once 'mvc/core/Process_link.php';
 							</li>
 							<li><a class="menuitem">Slider Option</a>
 								<ul class="submenu">
-									<li><a href="addslider.php">Add Slider</a> </li>
-									<li><a href="sliderlist.php">Slider List</a> </li>
+									<li><a href="<?= $link?>Slider/add_slider">Add Slider</a> </li>
+									<li><a href="<?= $link?>Slider/list_slider">Slider List</a> </li>
 								</ul>
 							</li>
 							

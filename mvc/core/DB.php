@@ -31,7 +31,7 @@ class DB {
 		} else {
 			return false;
 		}
-		$connect -> close();
+		$this->connect->close();
 	}
 
 // Insert data
@@ -43,7 +43,7 @@ class DB {
 		} else {
 			return false;
 		}
-		$connect -> close();
+		$this->connect->close();
 	}
 
 // Update data
@@ -55,19 +55,16 @@ class DB {
 		} else {
 			return false;
 		}
-		$connect -> close();
+		$this->connect->close();
 	}
 
 // Delete data
 	public function delete($query){
-		$delete_row = $this->connect->query($query) or 
-		die($this->connect->error.__LINE__);
-		if($delete_row){
-			return $delete_row;
-		} else {
-			return false;
-		}
-		$connect -> close();
+		$delete_row = $this->connect->query($query);
+		return $delete_row;
+
+		
+		$this->connect->close();
 	}
 
 }

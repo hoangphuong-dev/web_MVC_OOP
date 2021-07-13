@@ -49,14 +49,14 @@
 	</div>
 	<div class="header_bottom_right_images">
 		<!-- FlexSlider -->
-
 		<section class="slider">
 			<div class="flexslider">
 				<ul class="slides">
-					<li><img src="<?= $link?>public/images/1.jpg" alt=""/></li>
-					<li><img src="<?= $link?>public/images/2.jpg" alt=""/></li>
-					<li><img src="<?= $link?>public/images/3.jpg" alt=""/></li>
-					<li><img src="<?= $link?>public/images/4.jpg" alt=""/></li>
+					<?php if($data['slider'] == '') { ?>
+						<li><img src="<?= $link?>public/images/1.jpg"/></li>
+					<?php } else {  foreach ($data['slider'] as $key) { ?>
+						<li><img src="<?= $link?>public/upload/<?= $key['slider_image'] ?>"/></li>
+					<?php } }  ?>
 				</ul>
 			</div>
 		</section>

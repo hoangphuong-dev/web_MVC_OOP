@@ -56,7 +56,6 @@ class Product {
 	}
 	function process_insert() {
 		$data = $this->getDataForm();
-		$unique_image = $this->process_image();
 		if($data["product_name"] == "" || $data["product_price"] == "") {
 			$result_category = $this->getDataCategory();
 			$result_brand = $this->getDataBrand();

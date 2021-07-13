@@ -150,6 +150,8 @@ input[type="number"] {
 	text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25);
 	cursor:pointer;
 	outline:none;
+	margin: 20px;
+
 }
 .wrapper-dropdown.active .dropdown{
 	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
@@ -1427,6 +1429,10 @@ table.tblone input[type="submit"] {
 	font-size: 14px;
 	padding: 1px 5px;
 }
+.update_profile {
+	margin-left: -60px;
+	margin-top: 30px;
+}
 table.tblone a {
 	color: #fe5800;
 	font-weight: bold;
@@ -2521,4 +2527,51 @@ table.tblone img {
 	font-size: 17px;
 	background: #683395;
 	color: white;
+}
+.add {
+	background: #602d8d;
+	color: white;
+	padding: 7px;
+	margin-right: 20px;
+	border-radius: 5px;
+	font-size: 14px;
+}
+.avatar_profile {
+	width: 100%;
+	border: 1px solid #fff;
+	margin-bottom: 12px;
+}
+.avatar_profile td {
+	padding: 10px;
+	text-align: center;
+}
+.avatar_profile img {
+	height: 200px;
+	width: 200px;
+}
+.login_already {
+	border: 1px solid #cecece;
+	box-sizing: border-box;
+	display: block;
+	float: left;
+	height: 38px;
+	margin-left: 13px;
+	width: 167px;
+}
+.login_already img {
+	width: 35px;
+	height: 36px;
+	margin-right: 10px;
+}
+.login_already p {
+	font-size: 11px;
+	font-weight: bold;
+	text-align: center;
+	margin-top: 5px;
+	margin-bottom: 8px;
+}
+.customer_name {
+	width: 115px;
+	height: 38px;
+	float: right;
 }

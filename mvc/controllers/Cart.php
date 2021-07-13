@@ -47,8 +47,11 @@ class Cart {
 	}
 
 	function add_to_cart() {
+		$product_id = $this->validation($_POST['product_id']);
+		$product = $this->model("HomeModel");
+		$result = $product->getProductById($product_id);
+		$result_product_category = $product->getCategory();
 		if(self::$session_login == 1) {
-			$product_id = $this->validation($_POST['product_id']);
 			$quatity = $this->validation($_POST['quatity']);
 			$product_price = $this->validation($_POST['product_price']);
 			if(isset($_SESSION['cart'.self::$id_customer][$product_id])) {
@@ -64,8 +67,14 @@ class Cart {
 					$_SESSION['cart'.self::$id_customer][$product_id] = 1;
 				}
 			}
-			echo "<script type='text/javascript'> alert('add to cart success !');</script>";
-			header('Location: ' . $_SERVER['HTTP_REFERER']);
+			$this->view("user_layout", [
+				"name_page"=>"home_user",
+				"Page"=>"preview",
+				"alert"=>"Add to cart success !",
+				"color"=>"green",
+				"product"=>$result,
+				"product_category"=>$result_product_category,
+			]);
 		} else {
 			header("Location:../Home/login");
 		}

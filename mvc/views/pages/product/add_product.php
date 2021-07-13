@@ -17,7 +17,7 @@
             <td><label>Category</label></td>
             <td>
                 <select id="select" name="category_id">
-                    <option value="9">Select Category</option>
+                    <option>Select Category</option>
                     <?php foreach ($data['category'] as $row) { ?> 
                         <option value="<?= $row['category_id'] ?>"><?= $row['category_name'] ?></option>
                     <?php } ?>

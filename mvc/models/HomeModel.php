@@ -50,4 +50,19 @@ class HomeModel extends DB {
 		$result = $this->select($query);
 		return $result;
 	}
+	public function getProduct($array_id_product) {
+		$query = "select * from product_brand_category_type where product_id in (";
+		for($i = 0; $i < count($array_id_product); $i++) { 
+			$query .= $array_id_product[$i];
+			if($i < (count($array_id_product) -1)) $query .= ",";
+		}
+		$query .= ")";
+		$result = $this->select($query);
+		return $result;
+	}
+	public function getSlider() {
+		$query = "select * from slider where slider_status = 1";
+		$result = $this->select($query);
+		return $result;
+	}
 }

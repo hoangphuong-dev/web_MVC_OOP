@@ -81,11 +81,16 @@
 			$customer_id = Session::get('customerId');
 			$order_by_id = $this->model("OrderModel");
 			$result_by_id = $order_by_id->getOrderByIdCus($customer_id);
-			$this->view("user_layout", [
-				"name_page"=>"manage_order",
-				"Page"=>"view_order_customer",
-				"order_by_id"=>$result_by_id,
-			]);
+			$count = mysqli_num_rows($result_by_id);
+			if($count == 1) {
+				$this->view("user_layout", [
+					"name_page"=>"manage_order",
+					"Page"=>"view_order_customer",
+					"order_by_id"=>$result_by_id,
+				]);
+			} else {
+				echo "Không có hoá đơn này !";
+			}
 		}
 		public function view_details_customer($order_id) {
 			$customer_id = Session::get('customerId');

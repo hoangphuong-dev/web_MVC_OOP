@@ -26,11 +26,34 @@ if(isset($_SESSION['cart'.$customer_id])) {
 	<script type="text/javascript" src="<?= $link?>public/js/nav-hover.js"></script>
 	<link href='http://fonts.googleapis.com/css?family=Monda' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Doppio+One' rel='stylesheet' type='text/css'>
+	<a href="#" id="toTop" style="display: block;"><span id="toTopHover" style="opacity: 1;"></span></a>
+	<link href="<?= $link?>public/css/flexslider.css" rel='stylesheet' type='text/css' />
+	<script defer src="<?= $link?>public/js/jquery.flexslider.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function($){
 			$('#dc_mega-menu-orange').dcMegaMenu({rowItems:'4',speed:'fast',effect:'fade'});
 		});
 	</script>
+
+	<script type="text/javascript">
+		$(function(){
+			SyntaxHighlighter.all();
+		});
+		$(window).load(function(){
+			$('.flexslider').flexslider({
+				animation: "slide",
+				start: function(slider){
+					$('body').removeClass('loading');
+				}
+			});
+		});
+	</script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$().UItoTop({ easingType: 'easeOutQuart' });
+		});
+	</script>
+
 </head>
 <body>
 	<?php print_r($_SESSION) ?>
@@ -60,118 +83,102 @@ if(isset($_SESSION['cart'.$customer_id])) {
 
 				</div>
 				<?php if(isset($_SESSION['customerLogin'])) { ?>
-					<?php echo Session::get('customerName') ?>
-					<div><a href="<?= $link ?>Home/logout">Logout</a></div>
-				<?php } else { ?>
-					<div class="login"><a href="<?= $link ?>Home/login">Login</a></div>
-				<?php } ?>
+					<div class="login_already"> 
+						<img src="
+						<?php 
+						$path_image = $link."public/upload/";
+						if(!empty(Session::get('image_profile'))) {
+							echo $path_image.Session::get('image_profile');
+							} else {
+								echo $path_image."image_profile.png";
+							}
+							?>" >
+							<div class="customer_name">
+								<p><?php echo Session::get('customerName') ?></p>
+								<p><a href="<?= $link ?>Home/logout">Logout</a></p>
+							</div>
+							
+						</div>
+					<?php } else { ?>
+						<div class="login"><a href="<?= $link ?>Home/login">Login</a></div>
+					<?php } ?>
 
+					<div class="clear"></div>
+				</div>
 				<div class="clear"></div>
 			</div>
-			<div class="clear"></div>
-		</div>
-		<div class="menu">
-			<ul id="dc_mega-menu-orange" class="dc_mm-orange">
-				<li><a href="<?= $link ?>Home">Home</a></li>
-				<li><a href="<?= $link ?>Home/products">Products</a></li>
-				<li><a href="<?= $link ?>Home/topbrands">Top Brands</a></li>
-				<li><a href="<?= $link ?>Cart/view_cart">Cart</a></li>
-				<?php if(Session::get('customerLogin') == 1)  { ?>
-					<li><a href="<?= $link ?>Profile/view_profile">Profile</a></li>
-				<?php } ?>
-				<?php if(Session::get('customerLogin') == 1)  { ?>
-					<li><a href="<?= $link ?>ManageOrder/view_order_by_id">Ordered</a></li>
-				<?php } ?>
-				<li><a href="<?= $link ?>Home/contact">Contact</a></li>
-				<div class="clear"></div>
-			</ul>
-		</div>
-		<?php require_once "mvc/views/pages/".$data['name_page']."/".$data['Page'].".php"?>
-		<div class="footer">
-			<div class="wrapper">	
-				<div class="section group">
-					<div class="col_1_of_4 span_1_of_4">
-						<h4>Information</h4>
-						<ul>
-							<li><a href="#">About Us</a></li>
-							<li><a href="#">Customer Service</a></li>
-							<li><a href="#"><span>Advanced Search</span></a></li>
-							<li><a href="#">Orders and Returns</a></li>
-							<li><a href="#"><span>Contact Us</span></a></li>
-						</ul>
-					</div>
-					<div class="col_1_of_4 span_1_of_4">
-						<h4>Why buy from us</h4>
-						<ul>
-							<li><a href="about.html">About Us</a></li>
-							<li><a href="faq.html">Customer Service</a></li>
-							<li><a href="#">Privacy Policy</a></li>
-							<li><a href="contact.html"><span>Site Map</span></a></li>
-							<li><a href="preview.html"><span>Search Terms</span></a></li>
-						</ul>
-					</div>
-					<div class="col_1_of_4 span_1_of_4">
-						<h4>My account</h4>
-						<ul>
-							<li><a href="contact.html">Sign In</a></li>
-							<li><a href="index.html">View Cart</a></li>
-							<li><a href="#">My Wishlist</a></li>
-							<li><a href="#">Track My Order</a></li>
-							<li><a href="faq.html">Help</a></li>
-						</ul>
-					</div>
-					<div class="col_1_of_4 span_1_of_4">
-						<h4>Contact</h4>
-						<ul>
-							<li><span>+88-01713458599</span></li>
-							<li><span>+88-01813458552</span></li>
-						</ul>
-						<div class="social-icons">
-							<h4>Follow Us</h4>
+			<div class="menu">
+				<ul id="dc_mega-menu-orange" class="dc_mm-orange">
+					<li><a href="<?= $link ?>Home">Home</a></li>
+					<li><a href="<?= $link ?>Home/products">Products</a></li>
+					<li><a href="<?= $link ?>Home/topbrands">Top Brands</a></li>
+					<li><a href="<?= $link ?>Cart/view_cart">Cart</a></li>
+					<?php if(Session::get('customerLogin') == 1)  { ?>
+						<li><a href="<?= $link ?>Profile/view_profile">Profile</a></li>
+						<li><a href="<?= $link ?>ManageOrder/view_order_by_id">Ordered</a></li>
+					<?php } ?>
+					<li><a href="<?= $link ?>Home/view_comparison">Comparison</a></li>
+					<li><a href="<?= $link ?>Home/contact">Contact</a></li>
+					<div class="clear"></div>
+				</ul>
+			</div>
+			<?php require_once "mvc/views/pages/".$data['name_page']."/".$data['Page'].".php"?>
+			<div class="footer">
+				<div class="wrapper">	
+					<div class="section group">
+						<div class="col_1_of_4 span_1_of_4">
+							<h4>Information</h4>
 							<ul>
-								<li class="facebook"><a href="#" target="_blank"> </a></li>
-								<li class="twitter"><a href="#" target="_blank"> </a></li>
-								<li class="googleplus"><a href="#" target="_blank"> </a></li>
-								<li class="contact"><a href="#" target="_blank"> </a></li>
-								<div class="clear"></div>
+								<li><a href="#">About Us</a></li>
+								<li><a href="#">Customer Service</a></li>
+								<li><a href="#"><span>Advanced Search</span></a></li>
+								<li><a href="#">Orders and Returns</a></li>
+								<li><a href="#"><span>Contact Us</span></a></li>
 							</ul>
 						</div>
+						<div class="col_1_of_4 span_1_of_4">
+							<h4>Why buy from us</h4>
+							<ul>
+								<li><a href="about.html">About Us</a></li>
+								<li><a href="faq.html">Customer Service</a></li>
+								<li><a href="#">Privacy Policy</a></li>
+								<li><a href="contact.html"><span>Site Map</span></a></li>
+								<li><a href="preview.html"><span>Search Terms</span></a></li>
+							</ul>
+						</div>
+						<div class="col_1_of_4 span_1_of_4">
+							<h4>My account</h4>
+							<ul>
+								<li><a href="contact.html">Sign In</a></li>
+								<li><a href="index.html">View Cart</a></li>
+								<li><a href="#">My Wishlist</a></li>
+								<li><a href="#">Track My Order</a></li>
+								<li><a href="faq.html">Help</a></li>
+							</ul>
+						</div>
+						<div class="col_1_of_4 span_1_of_4">
+							<h4>Contact</h4>
+							<ul>
+								<li><span>+88-01713458599</span></li>
+								<li><span>+88-01813458552</span></li>
+							</ul>
+							<div class="social-icons">
+								<h4>Follow Us</h4>
+								<ul>
+									<li class="facebook"><a href="#" target="_blank"> </a></li>
+									<li class="twitter"><a href="#" target="_blank"> </a></li>
+									<li class="googleplus"><a href="#" target="_blank"> </a></li>
+									<li class="contact"><a href="#" target="_blank"> </a></li>
+									<div class="clear"></div>
+								</ul>
+							</div>
+						</div>
 					</div>
-				</div>
-				<div class="copy_right">
-					<p>Training with live project &amp; All rights Reseverd </p>
+					<div class="copy_right">
+						<p>Training with live project &amp; All rights Reseverd </p>
+					</div>
 				</div>
 			</div>
 		</div>
-		<script type="text/javascript">
-			$(document).ready(function() {
-			/*
-			var defaults = {
-	  			containerID: 'toTop', // fading element id
-				containerHoverID: 'toTopHover', // fading element hover id
-				scrollSpeed: 1200,
-				easingType: 'linear' 
-	 		};
-	 		*/
-
-	 		$().UItoTop({ easingType: 'easeOutQuart' });
-	 	});
-	 </script>
-	 <a href="#" id="toTop" style="display: block;"><span id="toTopHover" style="opacity: 1;"></span></a>
-	 <link href="<?= $link?>public/css/flexslider.css" rel='stylesheet' type='text/css' />
-	 <script defer src="<?= $link?>public/js/jquery.flexslider.js"></script>
-	 <script type="text/javascript">
-	 	$(function(){
-	 		SyntaxHighlighter.all();
-	 	});
-	 	$(window).load(function(){
-	 		$('.flexslider').flexslider({
-	 			animation: "slide",
-	 			start: function(slider){
-	 				$('body').removeClass('loading');
-	 			}
-	 		});
-	 	});
-	 </script>
 	</body>
 	</html>
