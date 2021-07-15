@@ -3,7 +3,7 @@
 	<div class="content">
 		<div class="cartoption">		
 			<div class="cartpage">
-				<h2>Your Cart</h2>
+				<h2 style="width: 257px;">Your Comparison</h2>
 				<table class="tblone">
 					<tr>
 						<th width="20%">Product Name</th>

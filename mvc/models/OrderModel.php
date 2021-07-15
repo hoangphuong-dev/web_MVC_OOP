@@ -44,11 +44,17 @@ class OrderModel extends DB {
 // Model của bên khách hàng
 	public function getOrderDetailCus($order_id, $customer_id) {
 		$sql = "select order_id from orders where order_id = '$order_id' and customer_id = '$customer_id'";
-		$row = mysqli_fetch_array($this->select($sql));
-		$a = $row['order_id'];
-		$query = "select * from order_details_product where order_id = '$a'";
-		$result = $this->select($query);
-		return $result;
+		$result_detail = $this->select($sql);
+		if(empty($result_detail)) {
+			echo "Khong co chi tiet";
+			exit();
+		} else {
+			$row = mysqli_fetch_array($result_detail);
+			$a = $row['order_id'];
+			$query = "select * from order_details_product where order_id = '$a'";
+			$result = $this->select($query);
+			return $result;
+		}
 	}
 
 }

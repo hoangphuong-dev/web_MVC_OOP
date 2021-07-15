@@ -1,3 +1,4 @@
+<!-- file này là của admin quản lý -->
 <title>Order List</title>
 <div class="box round first grid">
 	<h2>Order List</h2>

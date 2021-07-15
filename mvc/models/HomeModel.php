@@ -6,7 +6,7 @@ class HomeModel extends DB {
 		return $result;
 	}
 	public function getFeatureProduct() {
-		$query = "select * from product_brand_category_type where type_name = 'siêu siêu xịn' limit 4";
+		$query = "select * from product_brand_category_type where type_name = 'siêu xịn' limit 4";
 		$result = $this->select($query);
 		return $result;
 	}
@@ -45,10 +45,21 @@ class HomeModel extends DB {
 		$result = $this->select($query);
 		return $result;
 	}
-	public function getProductByCat($category) {
+	public function getProductByCat($category, $page) {
+		if($page == '') {
+			$page = 1;
+		}
 		$query = "select * from product_brand_category_type where category_name = '$category'";
+		$product_in_a_page = 12;
+		$product_miss = ($page - 1) * $product_in_a_page;
+		$total_product = mysqli_num_rows($this->select($query));
+		$total_page = ceil($total_product/$product_in_a_page);
+		$query.="limit $product_in_a_page offset $product_miss";
 		$result = $this->select($query);
-		return $result;
+		return [
+			"query"=> $result,
+			"total_page"=>$total_page,
+		];
 	}
 	public function getProduct($array_id_product) {
 		$query = "select * from product_brand_category_type where product_id in (";
@@ -65,4 +76,28 @@ class HomeModel extends DB {
 		$result = $this->select($query);
 		return $result;
 	}
+	// tìm kiếm sản phẩm 
+	public function Search($key, $category_name, $brand_name, $page) {
+		$query = "select * from product_brand_category_type where 
+		product_name like '%$key%'
+		and category_name like '%$category_name%'
+		and brand_name like '%$brand_name%'
+		";
+		if($page == '') $page = 1;
+		$product_in_a_page = 12;
+		$product_miss = ($page - 1) * $product_in_a_page;
+		if($this->select($query) == '') {
+			return false;
+		}
+		$total_product = mysqli_num_rows($this->select($query));
+		$total_page = ceil($total_product/$product_in_a_page);
+		$query.="limit $product_in_a_page offset $product_miss";
+		$result_search = $this->select($query);
+		return [
+			"query"=>$result_search,
+			"total_page"=>$total_page,
+			"total_product"=>$total_product,
+		];
+	}
+
 }

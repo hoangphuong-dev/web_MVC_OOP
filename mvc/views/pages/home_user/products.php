@@ -15,7 +15,6 @@
 					</a>
 					<h2><?= $key['product_name'] ?></h2>
 					<p><?= $key['product_desc'] ?></p>
-					<p><?= $key['product_image']?></p>
 					<p><span class="price"><?= number_format($key['product_price'])?></span></p>
 					<div class="button"><span><a href="<?= $link?>Home/preview/<?= $key['product_id'] ?>" class="details">Details</a></span></div>
 				</div>
@@ -35,7 +34,6 @@
 					</a>
 					<h2><?= $key['product_name'] ?></h2>
 					<p><?= $key['product_desc'] ?></p>
-					<p><?= $key['product_image']?></p>
 					<p><span class="price"><?= number_format($key['product_price'])?></span></p>
 					<div class="button"><span><a href="<?= $link?>Home/preview/<?= $key['product_id'] ?>" class="details">Details</a></span></div>
 				</div>

@@ -45,8 +45,8 @@ require_once 'mvc/core/Process_link.php';
 					<img src="<?= $link?>public/images/livelogo.png" alt="Logo" />
 				</div>
 				<div class="floatleft middle">
-					<h1>Training with live project</h1>
-					<p>www.trainingwithliveproject.com</p>
+					<h1>Manage Website</h1>
+					<p>http://localhost/web-MVC.com</p>
 				</div>
 				<div class="floatright">
 					<div class="floatleft">
@@ -58,8 +58,7 @@ require_once 'mvc/core/Process_link.php';
 							</ul>
 						</div>
 					</div>
-					<div class="clear">
-					</div>
+					<div class="clear"></div>
 				</div>
 			</div>
 			<div class="clear">
@@ -67,10 +66,10 @@ require_once 'mvc/core/Process_link.php';
 			<div class="grid_12">
 				<ul class="nav main">
 					<li class="ic-dashboard"><a href="<?= $link?>Dashboard"><span>Dashboard</span></a> </li>
-					<li class="ic-form-style"><a href=""><span>User Profile</span></a></li>
-					<li class="ic-typography"><a href="changepassword.php"><span>Change Password</span></a></li>
-					<li class="ic-grid-tables"><a href="inbox.php"><span>Inbox</span></a></li>
-					<li class="ic-charts"><a href=""><span>Visit Website</span></a></li>
+					<li class="ic-form-style"><a href="#"><span>User Profile</span></a></li>
+					<li class="ic-typography"><a href="#"><span>Change Password</span></a></li>
+					<li class="ic-grid-tables"><a href="#"><span>Inbox</span></a></li>
+					<li class="ic-charts"><a href="#"><span>Visit Website</span></a></li>
 				</ul>
 			</div>
 			<div class="clear">
@@ -79,13 +78,9 @@ require_once 'mvc/core/Process_link.php';
 				<div class="box sidemenu">
 					<div class="block" id="section-menu">
 						<ul class="section menu">
-
-
 							<li><a class="menuitem">Manage Order</a>
 								<ul class="submenu">
 									<li><a href="<?= $link?>ManageOrder/view_order">View Order</a></li>
-									<li><a href="social.php">Social Media</a></li>
-									<li><a href="copyright.php">Copyright</a></li>
 								</ul>
 							</li>
 							<li><a class="menuitem">Category Option</a>
@@ -113,8 +108,6 @@ require_once 'mvc/core/Process_link.php';
 									<li><a href="<?= $link?>Slider/list_slider">Slider List</a> </li>
 								</ul>
 							</li>
-							
-							
 						</ul>
 					</div>
 				</div>
@@ -128,9 +121,7 @@ require_once 'mvc/core/Process_link.php';
 		<div class="clear">
 		</div>
 		<div id="site_info">
-			<p>
-				&copy; Copyright <a href="http://trainingwithliveproject.com">Training with live project</a>. All Rights Reserved.
-			</p>
+			<p> <a href="http://trainingwithliveproject.com">Copyright</a></p>
 		</div>
 	</body>
 	</html>

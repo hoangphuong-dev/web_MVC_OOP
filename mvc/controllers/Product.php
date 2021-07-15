@@ -5,12 +5,12 @@ class Product {
 	function Hello() {
 		$this->list();
 	}
-	function getDataCategory() {
+	public function getDataCategory() {
 		$category = $this->model("CategoryModel");
 		$result_category = $category->getAll();
 		return $result_category;
 	}
-	function getDataBrand() {
+	public function getDataBrand() {
 		$brand = $this->model("BrandModel");
 		$result_brand = $brand->getAll();
 		return $result_brand;

@@ -24,7 +24,7 @@ $row = $data['product'] ->fetch_array();
 								<input type="hidden" name="product_id" value="<?= $row['product_id'] ?>">
 								<input type="hidden" name="product_price" value="<?= $row['product_price'] ?>">
 								<input type="number" class="buyfield" name="quatity" value="1" min = "1" max = "10"/>
-								<input type="submit" class="buysubmit" name="submit" value="Buy Now"/> 
+								<input type="submit" class="buysubmit" name="submit" value="Add to cart"/> 
 							</form>
 							<a class="add" href="<?= $link?>Home/add_comparison/<?= $row['product_id'] ?>">Add comparison</a>
 							<a class="add" href="">Favourite</a>
@@ -41,7 +41,7 @@ $row = $data['product'] ->fetch_array();
 					<h2>CATEGORIES</h2>
 					<ul>
 						<?php foreach ($data['product_category'] as $key) {  ?>
-							<li><a href="<?= $link?>Home/productbycat/<?= $key['category_name']?>"><?= $key['category_name'] ?></a></li>
+							<li><a href="<?= $link?>Home/productbycat/<?= str_replace(' ', '-', $key['category_name']) ?>/"><?= $key['category_name']?></a></li>
 						<?php } ?>
 					</ul>
 

@@ -15,6 +15,9 @@ class Profile extends Product {
 		$this->view_profile();
 	}
 	public function view_profile() {
+		if($this->id_customer == '') {
+			header("Location:../");
+		}
 		$customer = $this->model("customerModel");
 		$result = $customer->getCustomerById($this->id_customer);
 		$count = mysqli_num_rows($result);
@@ -29,6 +32,9 @@ class Profile extends Product {
 		}
 	}
 	public function update_profile() {
+		if($this->id_customer == '') {
+			header("Location:../");
+		}
 		$customer_name = $this->validation($_POST['customer_name']);
 		$customer_phone = $this->validation($_POST['customer_phone']);
 		$customer_email = $this->validation($_POST['customer_email']);
@@ -50,6 +56,9 @@ class Profile extends Product {
 	}
 
 	public function change_avatar() {
+		if($this->id_customer == '') {
+			header("Location:../");
+		}
 		$size = $_FILES['product_image']['size'];
 		$avatar = $this->model('CustomerModel');
 		if($size == 0) {

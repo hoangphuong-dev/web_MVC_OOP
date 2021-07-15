@@ -1,11 +1,12 @@
 <?php
 Session::init();
 date_default_timezone_set('Asia/Ho_Chi_minh');
-class Cart {
+require_once 'mvc/controllers/Product.php';
+class Cart extends Product {
 	use Format;
 	use Controller;
-	protected static $id_customer;
-	protected static $session_login;
+	private static $id_customer;
+	private static $session_login;
 
 	public function __construct() {
 		self::$id_customer = Session::get('customerId');
@@ -131,8 +132,3 @@ class Cart {
 	}
 	
 }
-
-// huỷ phiên 
-// session_destroy();
-// unset ($_SESSION['cart'.$id_customer]);
-// unset ($_SESSION['total_quatity']);

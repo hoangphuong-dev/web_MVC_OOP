@@ -1,13 +1,14 @@
 <?php
 Session::init();
 date_default_timezone_set('Asia/Ho_Chi_minh');
-class Home {
+require_once 'mvc/controllers/Product.php';
+class Home extends Product {
 	use Controller;
 	use Format;
-	function Hello() {
+	public function Hello() { 
 		$this->view_home();
 	}
-	function view_home() {
+	public function view_home() {
 		$obj = $this->model("HomeModel");
 		$result_new_product = $obj->getNewProduct();
 		$result_feature_product = $obj->getFeatureProduct();
@@ -19,9 +20,8 @@ class Home {
 			"feature_product"=>$result_feature_product,
 			"slider"=>$result_slider,
 		]);
-
 	}
-	function preview($id) {
+	public function preview($id) {
 		$product = $this->model("HomeModel");
 		$result = $product->getProductById($id);
 		$result_product_category = $product->getCategory();
@@ -32,7 +32,7 @@ class Home {
 			"product_category"=>$result_product_category,
 		]);
 	}
-	function products() {
+	public function products() {
 		$product = $this->model("HomeModel");
 		$result_phone = $product->getProductByPhone();
 		$result_laptop = $product->getProductByLaptop();
@@ -43,7 +43,7 @@ class Home {
 			"product_laptop"=>$result_laptop,
 		]);
 	}
-	function topbrands() {
+	public function topbrands() {
 		$product = $this->model("HomeModel");
 		$result_dell = $product->getProductDell();
 		$result_hp = $product->getProductByHp();
@@ -56,48 +56,57 @@ class Home {
 			"product_apple"=>$result_apple,
 		]);
 	}
-	function productbycat($category) {
+	public function productbycat($category, $page) {
+		$category = str_replace('-', ' ', $category);
 		$product = $this->model("HomeModel");
-		$result_product_cat = $product->getProductByCat($category);
+		$result_product_cat = $product->getProductByCat($category, $page);
 		$this->view("user_layout", [
 			"name_page"=>"home_user",
 			"Page"=>"productbycat",
-			"product_cat"=>$result_product_cat,
+			"product"=>$result_product_cat['query'],
+			"cat_name"=>$category,
+			"total_page"=>$result_product_cat['total_page'],
 		]);
 	}
-	function contact() {
+
+	public function contact() {
 		$this->view("user_layout", [
 			"name_page"=>"home_user",
 			"Page"=>"contact",
 		]);
 	}
-	
-	function login() {
-		if(isset($_COOKIE['customer_id']) && isset($_COOKIE['customer_name']) && isset($_COOKIE['image_profile']) && isset($_COOKIE['customerLogin'])) {
-			// nếu có cookie thì lấy về 
-			$customer_id = $_COOKIE['customer_id'];
-			$customer_name = $_COOKIE['customer_name'];
-			$image_profile = $_COOKIE['image_profile'];
-			$customerLogin = $_COOKIE['customerLogin'];
-			// mỗi lần đăng nhập tăng thời gian lên 2 tháng (trong vòng 2 tháng không vào => tự đăng xuất)
-			setcookie('customer_id', $customer_id, time() + 60*60*24*60);
-			setcookie('customer_name', $customer_name, time() + 60*60*24*60);
-			setcookie('image_profile', $image_profile, time() + 60*60*24*60);
-			setcookie('customerLogin', $customerLogin, time() + 60*60*24*60);
-			// gán giá trị của cookie vào session 
-			Session::set('customerLogin', $customerLogin);
-			Session::set('customerId', $customer_id);
-			Session::set('customerName', $customer_name);
-			Session::set('image_profile', $image_profile);
-			header("Location:../");
 
+	// Tìm kiếm 
+	public function search($page) {
+		$key =  $this->validation($_POST['key']);
+		$category_name =  $this->validation($_POST['category_name']);
+		$brand_name =  $this->validation($_POST['brand_name']);
+
+		$search = $this->model('HomeModel');
+		$result_search = $search->Search($key, $category_name, $brand_name, $page);
+		$this->view("user_layout", [
+			"name_page"=>"home_user",
+			"Page"=>"productbycat",
+			"product"=>$result_search['query'],
+			"total_page"=>$result_search['total_page'],
+			"total_product"=>$result_search['total_product'],
+			"key"=>$key,
+			"category_name"=>$category_name,
+			"brand_name"=>$brand_name,
+		]);
+	}
+
+	// Đăng nhập , đăng kí , đăng xuất
+	public function login() {
+		if(!empty($_SESSION['customerLogin']) && $_SESSION['customerLogin'] == 1) {
+			header("Location:../");
 		}
 		$this->view("user_layout", [
 			"name_page"=>"home_user",
 			"Page"=>"login",
 		]);
 	}
-	function process_register() {
+	public function process_register() {
 		$customer_name = $this->validation($_POST['name']);
 		$customer_phone = $this->validation($_POST['phone']);
 		$customer_email = $this->validation($_POST['email']);
@@ -120,8 +129,8 @@ class Home {
 			"alert"=>$alert,
 			"color"=>$color,
 		]);
-	}
-	function process_login() {
+	}	
+	public function process_login() {
 		$customer_email = $this->validation($_POST['email']);
 		$customer_password = md5($this->validation($_POST['password']));
 		if(empty($customer_email) || empty($customer_password)) {
@@ -137,7 +146,8 @@ class Home {
 			$row = $result->fetch_array();
 			$count = mysqli_num_rows($result);
 			if($count == 1) {
-				if(isset($_POST['remember_login'])) {
+
+				if(isset($_POST['remember_login']) && $_POST['remember_login'] == 'on') {
 					setcookie("customer_id",$row['customer_id'], (time() + 60*60*24*60));
 					setcookie("customer_name",$row['customer_name'], (time() + 60*60*24*60));
 					setcookie("image_profile",$row['customer_image'], (time() + 60*60*24*60));
@@ -159,20 +169,25 @@ class Home {
 		}
 	}
 
-	function logout() {
+	public function logout() {
 		unset ($_SESSION['customerLogin']);
 		unset ($_SESSION['customerId']);
 		unset ($_SESSION['customerName']);
 		unset ($_SESSION['image_profile']);
 		// khi đăng xuất => vô hiệu hoá cookie
-		setcookie("customer_id",'', -1);
-		setcookie("customer_name",'', -1);
-		setcookie("image_profile",'', -1);
-		setcookie("customerLogin",'', -1);
+		setcookie("customer_id", "", -1);
+		setcookie("customer_name", "", -1);
+		setcookie("image_profile", "", -1);
+		setcookie("customerLogin", "", -1);
+		unset($_COOKIE['customer_id']);
+		unset($_COOKIE['customer_name']);
+		unset($_COOKIE['image_profile']);
+		unset($_COOKIE['customerLogin']);
 		header("Location:../");
 	}
+
 	// chức năng nâng cao (So sánh và sản phẩm yêu thích)
-	function add_comparison($product_id) {
+	public function add_comparison($product_id) {
 		$product = $this->model("HomeModel");
 		$result = $product->getProductById($product_id);
 		$result_product_category = $product->getCategory();
@@ -193,7 +208,7 @@ class Home {
 			"product_category"=>$result_product_category,
 		]);
 	}
-	function view_comparison() {
+	public function view_comparison() {
 		$session_comparison = Session::get('comparison');
 		if(!empty($session_comparison)) {
 			$cart = $this->model("HomeModel");
@@ -215,7 +230,7 @@ class Home {
 		}
 		
 	}
-	function delete_product_in_comparison($product_id) {
+	public function delete_product_in_comparison($product_id) {
 		unset($_SESSION['comparison'][$product_id]);
 		header("Location:../view_comparison");
 	}

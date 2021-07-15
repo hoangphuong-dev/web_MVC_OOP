@@ -39,25 +39,34 @@ body{
 }
 .logo{
 	float:left;
-	width:33%;
+	width:20%;
 }
 /**** Header Top Right ****/
 .header_top_right{
 	float:left;
-	width:67%;
+	width:80%;
 	margin-top:35px;
+}
+.add_search_box {
+	position: relative;
+	width: 50%;
+	float: left;
+}
+.add_search_box select {
+	height: 35px;
 }
 .search_box{
 	float:left;
 	border: 1px solid #DBDBDB;
 	position:relative;
-	width:47%;
+	width: 56%;
 }
 .search_box input[type="text"]{
-	width:74%;
+	width: 40%;
 	padding:9px 8px;
 	outline:none;
 	border:none;
+	float: left;
 	background:none;
 	font-size:14px;
 	color:#a5a5a5;
@@ -70,7 +79,7 @@ body{
 	cursor:pointer;
 	color:#FFF;
 	font-size:12px;
-	padding:10px 15px;
+	padding: 10px 5px;
 	height: 36px;
 	margin:0;
 	background: -webkit-gradient(linear,left top,left bottom,from(#70389C),to(#602D8D));
@@ -603,15 +612,22 @@ button.grey:hover,.search button.grey:hover{
 .grid_1_of_4{
 	display: block;
 	float:left;
-	margin: 1% 0 1% 1.6%;
+	/* margin: 1% 0 1% 1.6%; */
+	margin-top: 50px;
+	margin-right: 25px;
+	margin-bottom: 10px;
 	box-shadow: 0px 0px 3px rgb(150, 150, 150);
 }
 .grid_1_of_4:first-child { 
 	margin-left: 0; 
 } 
 .images_1_of_4 {
-	width: 20.8%;
+	width: 19.8%;
 	padding:1.5%;
+	/* padding-left: 20px;
+	padding-right: 20px;
+	padding-top: 20px;
+	padding-bottom: 20px; */
 	text-align:center;
 	position:relative; 
 }

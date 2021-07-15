@@ -1,5 +1,6 @@
 <?php
 Session::init();
+Session::checkLogin();
 require_once 'mvc/core/Process_link.php';
 $customer_id = Session::get('customerId');
 if(isset($_SESSION['cart'.$customer_id])) {
@@ -8,7 +9,13 @@ if(isset($_SESSION['cart'.$customer_id])) {
 		$total_quatity += $each;
 	}
 	Session::set('total_quatity', $total_quatity);
+
 }
+require_once 'mvc/controllers/Product.php';
+$object = new Product();
+$data['category'] = $this->getDataCategory();
+$data['brand'] = $this->getDataBrand();
+
 ?>
 <!DOCTYPE HTML>
 <head>
@@ -56,7 +63,7 @@ if(isset($_SESSION['cart'.$customer_id])) {
 
 </head>
 <body>
-	<?php print_r($_SESSION) ?>
+	<?php // print_r($_SESSION) ?>
 	<div class="wrap">
 		<div class="header_top">
 			<div class="logo">
@@ -64,10 +71,26 @@ if(isset($_SESSION['cart'.$customer_id])) {
 			</div>
 			<div class="header_top_right">
 				<div class="search_box">
-					<form>
-						<input type="text" value="Search for Products"><input type="submit" value="SEARCH">
+					<form action="<?= $link?>Home/search/" method="POST">
+						<input type="text" name="key" placeholder="Enter search product .. " autocomplete="off">
+						<div class="add_search_box">
+							<select name="category_name">
+								<option value="" selected>Category</option>
+								<?php foreach ($data['category'] as $key) { ?>
+									<option value="<?= $key['category_name'] ?>"><?= $key['category_name'] ?> </option>
+								<?php } ?>
+							</select>
+							<select name="brand_name">
+								<option value="" selected>Brand</option>
+								<?php foreach ($data['brand'] as $key) { ?>
+									<option value="<?= $key['brand_name']  ?>"><?= $key['brand_name']  ?></option>
+								<?php } ?>
+							</select>
+						</div>
+						<input type="submit" value="SEARCH">
 					</form>
 				</div>
+				
 
 				<div class="shopping_cart">
 					<div class="cart">
@@ -149,8 +172,7 @@ if(isset($_SESSION['cart'.$customer_id])) {
 						<div class="col_1_of_4 span_1_of_4">
 							<h4>My account</h4>
 							<ul>
-								<li><a href="contact.html">Sign In</a></li>
-								<li><a href="index.html">View Cart</a></li>
+								<li><a href="<?= $link ?>Cart/view_cart">View Cart</a></li>
 								<li><a href="#">My Wishlist</a></li>
 								<li><a href="#">Track My Order</a></li>
 								<li><a href="faq.html">Help</a></li>
@@ -159,14 +181,13 @@ if(isset($_SESSION['cart'.$customer_id])) {
 						<div class="col_1_of_4 span_1_of_4">
 							<h4>Contact</h4>
 							<ul>
-								<li><span>+88-01713458599</span></li>
-								<li><span>+88-01813458552</span></li>
+								<li><span><a href="tel:(+84) 968385320" title="Give me a call">(+84) 968 385 320</a></span></li>
+								<li><span><a href="tel:(+84) 869227057" title="Give me a call">(+84) 869 227 057</a></span></li>
 							</ul>
 							<div class="social-icons">
 								<h4>Follow Us</h4>
 								<ul>
-									<li class="facebook"><a href="#" target="_blank"> </a></li>
-									<li class="twitter"><a href="#" target="_blank"> </a></li>
+									<li class="facebook"><a href="https://www.facebook.com/hoangPhuong.2311/" target="_blank"> </a></li>
 									<li class="googleplus"><a href="#" target="_blank"> </a></li>
 									<li class="contact"><a href="#" target="_blank"> </a></li>
 									<div class="clear"></div>
@@ -175,7 +196,7 @@ if(isset($_SESSION['cart'.$customer_id])) {
 						</div>
 					</div>
 					<div class="copy_right">
-						<p>Training with live project &amp; All rights Reseverd </p>
+						<p>Copyright <?php $date =  new DateTime(); echo $date->format('Y')  ?></p>
 					</div>
 				</div>
 			</div>

@@ -26,7 +26,7 @@
 		<div class="section group">
 			<div class="listview_1_of_2 images_1_of_2">
 				<div class="listimg listimg_2_of_1">
-					<a href="preview.html"> <img src="<?= $link?>public/images/pic3.jpg" alt="" /></a>
+					<a href="preview.html"> <img src="<?= $link?>public/images/pic3.png" alt="" /></a>
 				</div>
 				<div class="text list_2_of_1">
 					<h2>Acer</h2>
@@ -103,6 +103,7 @@
 						<img height="230" src="<?= $link?>public/upload/<?= $each['product_image']?>"/>
 					</a>
 					<h2><?php echo $each['product_name']?></h2>
+					<p><?= $each['product_desc'] ?></p>
 					<p><span class="price"><?= number_format($each['product_price'])?></span></p>
 					<div class="button">
 						<span><a href="Home/preview/<?= $each['product_id']?>" class="details">Details</a></span>
