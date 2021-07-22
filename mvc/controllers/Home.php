@@ -146,12 +146,22 @@ class Home extends Product {
 			$row = $result->fetch_array();
 			$count = mysqli_num_rows($result);
 			if($count == 1) {
-
 				if(isset($_POST['remember_login']) && $_POST['remember_login'] == 'on') {
-					setcookie("customer_id",$row['customer_id'], (time() + 60*60*24*60));
-					setcookie("customer_name",$row['customer_name'], (time() + 60*60*24*60));
-					setcookie("image_profile",$row['customer_image'], (time() + 60*60*24*60));
-					setcookie("customerLogin","1", (time() + 60*60*24*60));
+					// lưu cookie bằng thông tin của người dùng => làm lộ thông tin và có thể fake để đăng nhập
+					// setcookie("customer_id",$row['customer_id'], (time() + 60*60*24*60));
+					// setcookie("customer_name",$row['customer_name'], (time() + 60*60*24*60));
+					// setcookie("image_profile",$row['customer_image'], (time() + 60*60*24*60));
+					// setcookie("customerLogin","1", (time() + 60*60*24*60));
+
+					// tự động tạo ra một cookie mới, làm trên nhiều thiết bị , nhiều trình duyệt 
+					// => Quản lý được người dùng đang đăng nhập trên những thiết bị nào , mấy thiết bị 
+					// => Bảo mật và không thể nào bị fake 
+					$create_at = date("Y-m-d H:i:s"); // thời gian người dùng đăng nhập
+					$customer_id = $row['customer_id']; // lấy id người dùng vừa đăng nhập đúng
+					$customer_email = $row['customer_email']; // lấy mail người dùng vừa đăng nhập đúng
+					$token = md5($customer_email.time()); // mã hoá với hàm thời gian => từng thời điểm đăng nhập sẽ tạo ra $token khác nhau
+					setcookie("token",$token, (time() + 60*60*24*60));
+					$customer->insertToken($create_at, $customer_id, $token); // insert token vào bảng token trong csdl
 				}
 				Session::set('customerLogin', true);
 				Session::set('customerId', $row['customer_id']);
@@ -170,19 +180,31 @@ class Home extends Product {
 	}
 
 	public function logout() {
+		// khi đăng xuất => vô hiệu hoá cookie
+		// setcookie("customer_id", "", -1);
+		// setcookie("customer_name", "", -1);
+		// setcookie("image_profile", "", -1);
+		// setcookie("customerLogin", "", -1);
+		// unset($_COOKIE['customer_id']);
+		// unset($_COOKIE['customer_name']);
+		// unset($_COOKIE['image_profile']);
+		// unset($_COOKIE['customerLogin']);
+		
+		// xoá token khỏi bảng customer_token trong DB 
+		if(isset($_COOKIE['token'])) {
+			$token = $_COOKIE['token'];
+			$logout = $this->model("CustomerModel");
+			$logout->deleteToken($token);
+			// vô hiệu hoá cookie 
+			setcookie("token", "", -1);
+			unset($_COOKIE['token']);
+		}
+		
+		// huỷ phiên đăng nhập
 		unset ($_SESSION['customerLogin']);
 		unset ($_SESSION['customerId']);
 		unset ($_SESSION['customerName']);
 		unset ($_SESSION['image_profile']);
-		// khi đăng xuất => vô hiệu hoá cookie
-		setcookie("customer_id", "", -1);
-		setcookie("customer_name", "", -1);
-		setcookie("image_profile", "", -1);
-		setcookie("customerLogin", "", -1);
-		unset($_COOKIE['customer_id']);
-		unset($_COOKIE['customer_name']);
-		unset($_COOKIE['image_profile']);
-		unset($_COOKIE['customerLogin']);
 		header("Location:../");
 	}
 

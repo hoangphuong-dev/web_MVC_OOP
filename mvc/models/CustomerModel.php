@@ -10,7 +10,18 @@ class CustomerModel extends DB {
 		$result = $this->insert($query);
 		return $result;
 	}
-
+	// khi người dùng đăng nhập đúng => Insert token của người dùng vào bảng trong csdl
+	public function insertToken($create_at, $customer_id, $token) {
+		$query = "insert into customer_tokens(customer_id, token, create_at) 
+		values ('$customer_id', '$token', '$create_at')";
+		$this->insert($query);
+	}
+	// khi người dùng đăng xuất => xoá token trong DB
+	public function deleteToken($token) {
+		$query = "delete from customer_tokens where token = '$token'";
+		$this->select($query);
+	}
+	
 	// Model of ProfileController
 	public function getCustomerById($customer_id) {
 		$query = "select * from customer where customer_id = '$customer_id'";
