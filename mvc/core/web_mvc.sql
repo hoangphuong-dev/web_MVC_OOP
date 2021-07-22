@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 17, 2021 at 03:31 AM
+-- Generation Time: Jul 22, 2021 at 11:48 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.2.34
 
@@ -111,7 +111,28 @@ INSERT INTO `customer` (`customer_id`, `customer_name`, `customer_image`, `custo
 (3, 'Hoàng Ngọc', 'a08d72c7e1.jpg', '36 - Ninh Hiệp', 'Hà Nội', '+84869227057', 'ngoc@gmail.com', '202cb962ac59075b964b07152d234b70'),
 (4, 'Hoàng Trọng Phương', '7a511d7578.jpg', '36 - Ninh Hiệp', 'Hà Nội', '+84869227057', 'phuong@gmail.com', '202cb962ac59075b964b07152d234b70'),
 (6, 'Mai Anh', 'e57896ccad.jpg', 'Lê Lợi , Chí Linh', 'Hải Dương', '012345678', 'maianh02@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055'),
-(7, 'Kim Anh', '3795e83547.jpg', '36 - Thị trấn Hà Trung', 'Thanh Hoá', '0123456789', 'kimanh@gmail.com', '202cb962ac59075b964b07152d234b70');
+(7, 'Kim Anh', '3795e83547.jpg', '36 - Thị trấn Hà Trung', 'Thanh Hoá', '0123456789', 'kimanh@gmail.com', '202cb962ac59075b964b07152d234b70'),
+(8, 'Trần Phương', '', '36 - Ninh Hiệp', 'Hà Nội', '+84869227057', 'phuong01@gmail.com', '202cb962ac59075b964b07152d234b70');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `customer_tokens`
+--
+
+CREATE TABLE `customer_tokens` (
+  `customer_id` int(11) NOT NULL,
+  `token` varchar(255) NOT NULL,
+  `create_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `customer_tokens`
+--
+
+INSERT INTO `customer_tokens` (`customer_id`, `token`, `create_at`) VALUES
+(4, 'a04f3eed80f3dbf5a8efbd845fef5d3a', '2021-07-22 13:14:08'),
+(4, 'cc334960d17980d39142b363aac2e5bf', '2021-07-22 09:51:05');
 
 -- --------------------------------------------------------
 
@@ -141,7 +162,8 @@ INSERT INTO `orders` (`order_id`, `customer_id`, `admin_id`, `receiver_name`, `r
 (17, 6, 4, 'Mai Anh', 'Lê Lợi , Chí Linh - Hải Dương', '012345678', 0, '2021-07-08 10:06:13'),
 (18, 6, 1, 'Mai Duyên', 'Nguyễn Văn Cừ - Ninh Bình', '012345678', 2, '2021-07-08 10:18:47'),
 (19, 4, NULL, 'Văn Đức', '36 - Ninh Hiệp - Hà Nội', '+84869227057', 1, '2021-07-08 21:39:12'),
-(20, 7, 1, 'Kim Anh', '36 - Lê Thanh Nghị - Hai Bà Trưng - Hà Nội', '0123456789', 2, '2021-07-13 17:05:24');
+(20, 7, 1, 'Kim Anh', '36 - Lê Thanh Nghị - Hai Bà Trưng - Hà Nội', '0123456789', 2, '2021-07-13 17:05:24'),
+(24, 4, NULL, 'Hoàng Trọng Phương', '36 - Ninh Hiệp - Hà Nội', '+84869227057', 1, '2021-07-22 10:54:59');
 
 -- --------------------------------------------------------
 
@@ -198,7 +220,8 @@ INSERT INTO `order_details` (`order_id`, `product_id`, `quatity`, `product_price
 (19, 39, 1, '7500000'),
 (19, 41, 1, '5000000'),
 (20, 36, 3, '62000000'),
-(20, 40, 3, '15000000');
+(20, 40, 3, '15000000'),
+(24, 35, 1, '9000000');
 
 -- --------------------------------------------------------
 
@@ -381,6 +404,12 @@ ALTER TABLE `customer`
   ADD PRIMARY KEY (`customer_id`);
 
 --
+-- Indexes for table `customer_tokens`
+--
+ALTER TABLE `customer_tokens`
+  ADD PRIMARY KEY (`customer_id`,`token`);
+
+--
 -- Indexes for table `orders`
 --
 ALTER TABLE `orders`
@@ -442,13 +471,13 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `product`
@@ -471,6 +500,12 @@ ALTER TABLE `type`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `customer_tokens`
+--
+ALTER TABLE `customer_tokens`
+  ADD CONSTRAINT `customer_tokens_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`);
 
 --
 -- Constraints for table `orders`
